@@ -8,7 +8,7 @@ The response should be in the following format:
 {ReturnSchemaLesson}
 """
 
-def create_lesson(input_theme: LessonPlanSchema) -> LessonSchema:
+def create_lesson(input_theme: LessonPlanSchema) -> tuple[LessonSchema, str]:
     content = f"""
     name: {input_theme.lesson_name}
     plan: {input_theme.lesson_plan}
@@ -21,4 +21,4 @@ def create_lesson(input_theme: LessonPlanSchema) -> LessonSchema:
         ]
     )
     result = response.choices[0].message.content
-    return LessonSchema.model_validate_json(result) # type: ignore
+    return LessonSchema.model_validate_json(result), result #type: ignore

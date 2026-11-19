@@ -8,19 +8,18 @@ cache = []
 
 try:
     plan = create_plan(theme)
-    print(plan)
-    cache.append({"role": "assistant", "content": plan.model_dump_json()})
+    print(plan[0])
+    cache.append({"role": "assistant", "content": plan[1]})
     lessons = []
-    for les in plan.lessons:
+    for les in plan[0].lessons:
         lesson = create_lesson(les)
-        print(lesson)
-        cache.append({"role": "assistant", "content": lesson.model_dump_json()})
-        lessons.append(lesson)
+        print(lesson[0])
+        cache.append({"role": "assistant", "content": lesson[1]})
+        lessons.append(lesson[0])
     quiz = create_quiz(cache)
-    print(quiz)
+    print(quiz[0])
     task = create_task(cache)
     print(task)
     
 except Exception as e:
     raise e
-

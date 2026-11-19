@@ -1,10 +1,10 @@
 from client import client as cl # type: ignore
 from config import AI_MODEL # type: ignore
-from curse.schemas import ReturnSchema
+# from ai_api_nexus.curse.schemas import QuizSchema
 
 messages = [
     # {"role": "system", "content": "answer strictly in this form: [{'analysis': 'text'}, {'answer': 'text'}]"},
-    {"role": "user", "content": ReturnSchema}
+    # {"role": "user", "content": ReturnSchema}
 ]
 
 while True:
@@ -13,7 +13,6 @@ while True:
         break
 
     messages.append({"role": "user", "content": user_input})
-
     
     
     response = cl.chat.completions.create(

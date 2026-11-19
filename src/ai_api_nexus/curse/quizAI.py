@@ -1,6 +1,6 @@
 from ai_api_nexus.client import client as cl
 from ai_api_nexus.config import AI_MODEL
-from ai_api_nexus.curse.schemas import ReturnQuizSchema, QuizSchema
+from ai_api_nexus.curse.schemas import ReturnQuizSchema, QuizListSchema
 
 instructions =f"""
 Create a quiz with 4 answer options, 
@@ -12,7 +12,7 @@ the following format, as a list of 4 quiz items:
 {ReturnQuizSchema}
 """
 
-def create_quiz(cache) -> QuizSchema:
+def create_quiz(cache) -> tuple[QuizListSchema, str]:
     response = cl.chat.completions.create(
         model=AI_MODEL, #type: ignore
         messages=[
@@ -22,4 +22,4 @@ def create_quiz(cache) -> QuizSchema:
     )
 
     result = response.choices[0].message.content
-    return QuizSchema.model_validate_json(result) #type: ignore
+    return QuizListSchema.model_validate_json(result), result #type: ignore

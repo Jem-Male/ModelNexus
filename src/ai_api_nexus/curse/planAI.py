@@ -13,7 +13,7 @@ instructions =f"""
     {ReturnSchemaCursePlan}
 """
 
-def create_plan(input_theme) -> CursePlanSchema:
+def create_plan(input_theme) -> tuple[CursePlanSchema, str]:
     response = cl.chat.completions.create(
         model=AI_MODEL, #type: ignore
         messages=[
@@ -23,4 +23,4 @@ def create_plan(input_theme) -> CursePlanSchema:
     )
 
     result = response.choices[0].message.content
-    return CursePlanSchema.model_validate_json(result) #type: ignore
+    return CursePlanSchema.model_validate_json(result), result #type: ignore

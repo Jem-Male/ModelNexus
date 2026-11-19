@@ -46,4 +46,7 @@ class QuizSchema(BaseModel):
     options_test: Annotated[str, Field(max_length=200, description='quiz question')]
     quiz_options: list[QuizOptionSchema]
 
-ReturnQuizSchema = json.dumps(QuizSchema.model_json_schema(), ensure_ascii=False)
+class QuizListSchema(BaseModel):
+    quizzes: list[QuizSchema]
+
+ReturnQuizSchema = json.dumps(QuizListSchema.model_json_schema(), ensure_ascii=False)

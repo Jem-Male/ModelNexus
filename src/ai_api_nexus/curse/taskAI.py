@@ -12,7 +12,7 @@ the following format:
 {ReturnSchemaTask}
 """
 
-def create_task(cache) -> TaskSchema:
+def create_task(cache) -> tuple[TaskSchema, str]:
     response = cl.chat.completions.create(
         model=AI_MODEL, #type: ignore
         messages=[
@@ -22,4 +22,4 @@ def create_task(cache) -> TaskSchema:
     )
 
     result = response.choices[0].message.content
-    return TaskSchema.model_validate_json(result)  # type: ignore
+    return [TaskSchema.model_validate_json(result), result] #type: ignore
